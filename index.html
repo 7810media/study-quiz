@@ -16,7 +16,7 @@
   #next-btn { display: none; margin-top: 15px; padding: 12px 20px; border-radius: 8px; background: #007bff; color: #fff; border: none; }
   .score { font-size: 1.5em; margin-top: 20px; color: #333; }
   .tap-labels span { display: inline-block; margin: 8px; padding: 10px 15px; background: #007bff; color: white; border-radius: 6px; cursor: pointer; }
-  .drop-zone { border: 2px dashed #aaa; border-radius: 8px; padding: 20px; margin: 15px 0; }
+  .drop-zone { border: 2px dashed #aaa; border-radius: 8px; padding: 20px; margin: 15px 0; min-height: 40px; }
   .correct-drop { background: #28a745 !important; color: white; }
   .wrong-drop { background: #dc3545 !important; color: white; }
 </style>
@@ -32,17 +32,25 @@
   <div class="score" id="score"></div>
 </div>
 
-<!-- Tap-to-Label Section -->
+<!-- Tap-to-Place Labeling -->
 <div class="quiz-container" id="label-section" style="display:none;">
   <h2>Labeling Practice</h2>
-  <p>Tap the correct label for the highlighted structure.</p>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Diagram_of_the_human_heart_%28cropped%29.svg" alt="Heart Diagram">
-  <div class="drop-zone" id="drop-zone">Which valve is highlighted? (Mitral Valve)</div>
+  <p>Tap a label below to place it into the answer box.</p>
+
+  <!-- Heart Diagram -->
+  <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Diagram_of_the_human_heart_%28cropped%29.svg" 
+       alt="Heart Diagram">
+
+  <!-- Drop Zone -->
+  <div class="drop-zone" id="drop-zone">Place the correct valve name here</div>
+
+  <!-- Labels -->
   <div class="tap-labels">
-    <span onclick="checkLabel('Tricuspid Valve')">Tricuspid Valve</span>
-    <span onclick="checkLabel('Mitral Valve')">Mitral Valve</span>
-    <span onclick="checkLabel('Aortic Valve')">Aortic Valve</span>
+    <span onclick="placeLabel('Tricuspid Valve')">Tricuspid Valve</span>
+    <span onclick="placeLabel('Mitral Valve')">Mitral Valve</span>
+    <span onclick="placeLabel('Aortic Valve')">Aortic Valve</span>
   </div>
+
   <p id="label-feedback"></p>
 </div>
 
@@ -63,8 +71,6 @@ const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
 const scoreElement = document.getElementById("score");
 const labelSection = document.getElementById("label-section");
-const feedback = document.getElementById("label-feedback");
-const dropZone = document.getElementById("drop-zone");
 
 function startGame() {
   shuffledQuestions = questions.sort(() => Math.random() - 0.5);
@@ -134,12 +140,18 @@ function showScore() {
   };
 }
 
-// Tap-to-Label check
-function checkLabel(answer) {
+// Tap-to-Place check
+function placeLabel(answer) {
+  const dropZone = document.getElementById("drop-zone");
+  const feedback = document.getElementById("label-feedback");
+
+  dropZone.innerText = answer; // Show chosen label
   if (answer === "Mitral Valve") {
+    dropZone.classList.remove("wrong-drop");
     dropZone.classList.add("correct-drop");
     feedback.innerText = "✅ Correct! This is the Mitral Valve.";
   } else {
+    dropZone.classList.remove("correct-drop");
     dropZone.classList.add("wrong-drop");
     feedback.innerText = "❌ Incorrect. Try again!";
   }

@@ -37,7 +37,7 @@
   <h2>Labeling Practice</h2>
   <p>Tap a label below to place it into the answer box.</p>
 
-  <!-- Heart Diagram -->
+  <!-- Heart Diagram (raw link from Wikimedia) -->
   <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Diagram_of_the_human_heart_%28cropped%29.svg" 
        alt="Heart Diagram">
 
@@ -56,10 +56,28 @@
 
 <script>
 const questions = [
-  { question: "Which gland releases insulin?", answers: ["Pancreas", "Thyroid", "Adrenal Cortex", "Ovary"], correct: 0 },
-  { question: "What hormone lowers blood calcium?", answers: ["PTH", "Calcitonin", "Aldosterone", "Cortisol"], correct: 1 },
-  { question: "Identify this structure:", image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Respiratory_system_complete_en.svg", answers: ["Trachea", "Alveoli", "Bronchi", "Epiglottis"], correct: 0 },
-  { question: "Which blood cell type fights parasites?", image: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Eosinophil_smear_200x.png", answers: ["Neutrophil", "Eosinophil", "Basophil", "Lymphocyte"], correct: 1 }
+  { 
+    question: "Which gland releases insulin?", 
+    answers: ["Pancreas", "Thyroid", "Adrenal Cortex", "Ovary"], 
+    correct: 0 
+  },
+  { 
+    question: "What hormone lowers blood calcium?", 
+    answers: ["PTH", "Calcitonin", "Aldosterone", "Cortisol"], 
+    correct: 1 
+  },
+  { 
+    question: "Identify this structure:", 
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Respiratory_system_complete_en.svg", 
+    answers: ["Trachea", "Alveoli", "Bronchi", "Epiglottis"], 
+    correct: 0 
+  },
+  { 
+    question: "Which blood cell type fights parasites?", 
+    image: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Eosinophil_smear_200x.png", 
+    answers: ["Neutrophil", "Eosinophil", "Basophil", "Lymphocyte"], 
+    correct: 1 
+  }
 ];
 
 let shuffledQuestions = [];

@@ -9,7 +9,7 @@
   .quiz-container { max-width: 600px; margin: auto; padding: 20px; }
   h1 { color: #333; }
   .question { font-size: 1.2em; margin: 15px 0; }
-  .question img { max-width: 100%; height: auto; margin: 10px 0; border: 2px solid #ddd; border-radius: 8px; }
+  svg { max-width: 100%; height: auto; margin: 10px 0; border: 2px solid #ddd; border-radius: 8px; }
   .btn { display: block; width: 100%; background: #fff; border: 2px solid #007bff; color: #007bff; padding: 12px; margin: 8px 0; border-radius: 8px; font-size: 1em; cursor: pointer; }
   .btn.correct { background: #28a745; color: #fff; }
   .btn.wrong { background: #dc3545; color: #fff; }
@@ -32,7 +32,28 @@
 const questions = [
   { 
     question: "Which structure is the arrow pointing to on the heart?",
-    image: "heart_plain.svg",   // 👈 This references your new SVG file
+    // 👇 Instead of referencing an external file, we embed the SVG directly
+    image: `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+        <rect width="100%" height="100%" fill="white"/>
+        <!-- Heart base -->
+        <ellipse cx="400" cy="300" rx="180" ry="220" fill="#f28b82" stroke="black" stroke-width="3"/>
+        <ellipse cx="340" cy="250" rx="60" ry="70" fill="#aecbfa" stroke="black"/>
+        <ellipse cx="460" cy="350" rx="80" ry="100" fill="#fbbc04" stroke="black"/>
+        <ellipse cx="420" cy="280" rx="40" ry="20" fill="#fff" stroke="black"/>
+        <circle cx="450" cy="220" r="18" fill="#fff" stroke="black"/>
+        <!-- Arrows -->
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="red"/>
+          </marker>
+        </defs>
+        <line x1="200" y1="200" x2="320" y2="240" stroke="red" stroke-width="4" marker-end="url(#arrowhead)"/>
+        <line x1="600" y1="400" x2="500" y2="360" stroke="red" stroke-width="4" marker-end="url(#arrowhead)"/>
+        <line x1="300" y1="320" x2="390" y2="280" stroke="red" stroke-width="4" marker-end="url(#arrowhead)"/>
+        <line x1="600" y1="180" x2="465" y2="220" stroke="red" stroke-width="4" marker-end="url(#arrowhead)"/>
+      </svg>
+    `,
     answers: ["Right Atrium", "Left Ventricle", "Mitral Valve", "Aortic Valve"],
     correct: 0 
   },
@@ -66,9 +87,9 @@ function showQuestion() {
   let currentQuestion = shuffledQuestions[currentQuestionIndex];
   questionElement.innerHTML = currentQuestion.question;
   if (currentQuestion.image) {
-    const img = document.createElement("img");
-    img.src = currentQuestion.image;
-    questionElement.appendChild(img);
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = currentQuestion.image;
+    questionElement.appendChild(wrapper.firstChild);
   }
   currentQuestion.answers.forEach((answer, index) => {
     const button = document.createElement("button");
